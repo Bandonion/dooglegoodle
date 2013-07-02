@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+    <title>Calendar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/form-elements.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="css/style.css"/>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="JavaScript/calenderCalc.js" type="text/javascript"></script>
+    <script src="JavaScript/calenderDays.js" type="text/javascript"></script>
+    <script src="JavaScript/calenderMonth.js" type="text/javascript"></script>
+    <script src="JavaScript/jquery.tmpl.min.js" type="text/javascript"></script>
+</head>
+
+<body class="main">
+    <div id="header">
+        <h1>header!</h1>
+    </div>
+    <div id="middle">
+        <div id="left-side">
+            <h1>left</h1>
+        </div>
+        <div class="container">
+            <div id="divdatepicker">
+                <input type="hidden" id="datepicker"/>
+            </div>
+            <div class="calendar-month" id="calender-months-insert">
+
+            </div>
+            <div class="calendar-week">
+                <div class="calendar-week-item">Sun</div>
+                <div class="calendar-week-item">Mon</div>
+                <div class="calendar-week-item">Tue</div>
+                <div class="calendar-week-item">Wed</div>
+                <div class="calendar-week-item">Thu</div>
+                <div class="calendar-week-item">Fri</div>
+                <div class="calendar-week-item">Sat</div>
+            </div>
+            <div class="calendar-days" id="calender-days-insert">
+
+            </div>
+        </div>
+        <div id="right-side">
+            <h1>right</h1>
+        </div>
+    </div>
+    <div id="footer">
+        <h1>footer</h1>
+    </div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        var pickerOpts = {
+            showOn:"button",
+            buttonText: "Show Datepicker",
+            changeMonth: true,
+            changeYear: true
+        };
+        $("#datepicker").datepicker(pickerOpts);
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.calendar-days').listedDays({
+            data: getFormatedData(new Date()),
+            template : '#calendarDayTemplate',
+            list: '.calendar-month'
+        });
+
+        $('.calendar-month').listedMonth({
+            data: getFormatedData(new Date()),
+            template : '#calendarMonthTemplate'
+        });
+    });
+</script>
+
+<script id="calendarDayTemplate" type="text/x-jquery-tmpl">
+    <div class="calendar-days-item ${month} ${selected}">${day}</div>
+</script>
+
+<script id="calendarMonthTemplate" type="text/x-jquery-tmpl">
+    <div class="calendar-month-change calendar-month-prev"><</div>
+    <div class="calendar-month-current">${data.monthName} ${data.year}</div>
+    <div class="calendar-month-change calendar-month-next">></div>
+</script>
